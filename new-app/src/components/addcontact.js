@@ -15,6 +15,7 @@ class Addcontact extends React.Component{
         }
         this.props.addcontactHandler(this.state);
         this.setState({name:"", email:""});
+        this.props.history.push("/");
     }
     render(){    
         return(
@@ -38,7 +39,7 @@ class Addcontact extends React.Component{
                                 onChange={(e)=>this.setState({email:e.target.value})}/>
                             
                     </div>
-                    <button type="ui button blue">Add</button>
+                    <button className="ui button blue">Add</button>
                 </form>
             </div>
         );
