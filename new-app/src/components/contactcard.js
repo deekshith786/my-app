@@ -13,6 +13,9 @@ const CardContact = (props) => {
                     <div>{email}</div>
                 </Link>
                 <i className="trash alternate ouline icon" onClick={() => props.clickHandler(id)}></i>
+                <Link to={{pathname:`/edit`, state:{contact: props.contact}}}>
+                    <i className="edit alternate ouline icon" ></i>
+                </Link>                
             </div>
         </div>
     );
