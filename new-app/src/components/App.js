@@ -13,10 +13,13 @@ function App() {
 
   const Local_storege_key = "contacts"
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchresults, setsearchresults] = useState([]);
+
 
   const addcontactHandler = async (contact) => {
     console.log(contact);
-    const request ={
+    const request = {
       id: uuid(),
       ...contact,
     };
@@ -24,16 +27,16 @@ function App() {
     setContacts([...contacts, response.data]);
   }
 
-  const updatecontactHandler= async (contact)=>{    
+  const updatecontactHandler = async (contact) => {
     const response = await api.put(`/contacts/${contact.id}`, contact);
-    const {id, name, email} =response.data;
-    setContacts(contacts.map((contact)=>{
-      return contact.id === id ? {...response.data} : contact;
+    const { id, name, email } = response.data;
+    setContacts(contacts.map((contact) => {
+      return contact.id === id ? { ...response.data } : contact;
     })
-    )    
+    )
   }
 
-  const retriveContacts = async()=>{
+  const retriveContacts = async () => {
     const response = await api.get("/contacts");
     return response.data;
   }
@@ -41,9 +44,9 @@ function App() {
   useEffect(() => {
     // const retrivedata = JSON.parse(localStorage.getItem(Local_storege_key));
     // if (retrivedata) setContacts(retrivedata);
-    const getallContacts =async()=>{
-      const allcontacts =await retriveContacts();
-      if(allcontacts) setContacts(allcontacts);
+    const getallContacts = async () => {
+      const allcontacts = await retriveContacts();
+      if (allcontacts) setContacts(allcontacts);
     }
     getallContacts();
   }, [])
@@ -55,6 +58,19 @@ function App() {
     })
 
     setContacts(newcontactList);
+  }
+
+  const searcHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newcontactList = contacts.filter((contact) => {
+        return Object.values(contact).join(" ").toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase());
+      })
+      setsearchresults(newcontactList);
+    }
+    else {
+      setsearchresults(contacts);
+    }
   }
 
   useEffect(() => {
@@ -69,12 +85,14 @@ function App() {
             render={(props) => (
               <Contactlist
                 {...props}
-                contacts={contacts}
+                contacts={searchTerm.length < 1 ? contacts : searchresults}
                 getContactId={removecontacthandler}
+                term={searchTerm}
+                searchkeyword={searcHandler}
               />
             )}
           />
-           <Route path="/add" 
+          <Route path="/add"
             render={(props) => (
               <Addcontact
                 {...props}
@@ -82,7 +100,7 @@ function App() {
               />
             )}
           />
-          <Route path="/edit" 
+          <Route path="/edit"
             render={(props) => (
               <EditContact
                 {...props}
@@ -90,7 +108,7 @@ function App() {
               />
             )}
           />
-          <Route path ="/contact/:id" component={ContactDetail}/>
+          <Route path="/contact/:id" component={ContactDetail} />
         </Switch>
       </Router>
     </div>

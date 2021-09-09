@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Header = ()=>{
-    
+const Header = () => {
+
     return (
-        <div className= "ui fixed menu">
+        <div className="ui fixed menu">
             <div className="ui container center">
-            <h2>Contact manager</h2>                
+                <h2>Contact manager</h2>
             </div>
         </div>
     );

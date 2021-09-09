@@ -8,14 +8,14 @@ const CardContact = (props) => {
         <div className="item">
             <img className="ui-avatar image" width="50px" height="50px" src={image} alt="image wall" />
             <div className="content">
-                <Link to={{pathname:`/contact/${id}`, state:{contact: props.contact}}}> 
+                <Link to={{ pathname: `/contact/${id}`, state: { contact: props.contact } }}>
                     <div className="header">{name}</div>
                     <div>{email}</div>
                 </Link>
                 <i className="trash alternate ouline icon" onClick={() => props.clickHandler(id)}></i>
-                <Link to={{pathname:`/edit`, state:{contact: props.contact}}}>
+                <Link to={{ pathname: `/edit`, state: { contact: props.contact } }}>
                     <i className="edit alternate ouline icon" ></i>
-                </Link>                
+                </Link>
             </div>
         </div>
     );

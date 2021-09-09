@@ -3,10 +3,10 @@ import image from "../images/wall11.jpg"
 import { Link } from 'react-router-dom';
 
 const ContactDetail = (props) => {
-    const {name, email} = props.location.state.contact;
+    const { name, email } = props.location.state.contact;
     return (
         <div className="main">
-        <h1>Contact Details</h1>
+            <h1>Contact Details</h1>
             <div className="ui crard centered">
                 <div className="image">
                     <img src={image} width="400px" height="400px" alt="user image" />
@@ -18,7 +18,7 @@ const ContactDetail = (props) => {
             </div>
             <div className="center-div">
                 <Link to="/">
-                <button className="ui button blue center">back to contact list</button>
+                    <button className="ui button blue center">back to contact list</button>
                 </Link>
             </div>
         </div>
